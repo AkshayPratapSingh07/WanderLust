@@ -26,6 +26,7 @@ let listingSchema = new schema({
         ],
       },
     ],
+    default: ["Trending"],
     validate: [(arr) => arr.length > 0, "At least one category is required"],
   },
   description: {
