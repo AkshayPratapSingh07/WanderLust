@@ -1,0 +1,98 @@
+<% layout('/layouts/boilerplate') -%>
+<body>
+<div class="row mt-3">
+<div class="col-8 offset-2">
+  <h3>Create New Listing</h3>
+ <form method="post" action="/listings" class="needs-validation" novalidate enctype="multipart/form-data">
+
+    <div class="mb-2">
+      <label for="title" class="form-label">Title</label>
+      <input type="text" name="listing[title]" placeholder="Title" class="form-control" required />
+      <div class="invalid-feedback">Please provide a valid title.</div>
+    </div>
+    
+   <div class="mb-2">
+  <label for="description" class="form-label">Description</label>
+  <textarea
+    class="form-control"
+    name="listing[description]"
+    placeholder="Description"
+    required></textarea>
+  <div class="invalid-feedback">Please provide a valid description.</div>
+</div>
+    
+     <div class="mb-2">
+      <label for="location" class="form-label">Location</label>
+      <input type="text" name="listing[location]" placeholder="Location" class="form-control" required />
+         <div class="invalid-feedback">Please provide a valid location.</div>
+    </div>
+ 
+    <div class="row">
+<div class="mb-2 col-md-4">
+      <label for="price" class="form-label">Price</label>
+      <input type="number" name="listing[price]" placeholder="Price" class="form-control" required />
+       <div class="invalid-feedback">Please provide a valid price.</div>
+    </div>
+   
+    <div class="mb-2 col-md-8">
+      <label for="country" class="form-label">Country</label>
+      <input type="text" name="listing[country]" placeholder="Country" class="form-control" required />
+       <div class="invalid-feedback">Please provide a valid country.</div>
+    </div>
+   
+    </div>
+    
+   
+    <div class="mb-2">
+      <label for="image" class="form-label">Image</label>
+      <input type="file" name="listing[image]" placeholder="Image" class="form-control" required/>
+    </div>
+
+   <div class="mb-3">
+  <label class="form-label">Categories</label>
+
+  <div class="d-flex flex-wrap gap-3" id="categoryContainer">
+
+    <% const categories = [
+      { name: "Trending", icon: "fa-fire" },
+      { name: "Mountains", icon: "fa-mountain" },
+      { name: "Beach", icon: "fa-umbrella-beach" },
+      { name: "Farm", icon: "fa-tractor" },
+      { name: "Campgrounds", icon: "fa-campground" },
+      { name: "Amazing pools", icon: "fa-water-ladder" },
+      { name: "Iconic cities", icon: "fa-city" },
+      { name: "Castles", icon: "fa-chess-rook" },
+      { name: "Bed & Breakfast", icon: "fa-bed" },
+      { name: "Luxe", icon: "fa-crown" }
+
+    ]; %>
+
+    <% categories.forEach((cat, index) => { %>
+      <label class="category-card <%= index > 5 ? 'extra-category' : '' %>">
+        <input 
+          type="checkbox" 
+          name="listing[category][]" 
+          value="<%= cat.name %>" 
+          hidden
+        >
+        <div class="icon-box">
+          <i class="fa-solid <%= cat.icon %>"></i>
+          <p><%= cat.name %></p>
+        </div>
+      </label>
+    <% }) %>
+
+  </div>
+
+  <button type="button" id="toggleCategories" class="btn btn-outline-dark mt-2">
+    Show More
+  </button>
+</div>
+
+   <div class="mb-2">
+      <button class="btn btn-dark add-btn">Add</button>
+    </div>
+  </form>
+</div>
+</div>
+</body>

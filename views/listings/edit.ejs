@@ -1,0 +1,145 @@
+
+<% layout('/layouts/boilerplate') -%>
+<body>
+  <div class="row">
+    <div class="col-8 offset-2">
+      <h3 class="mt-3">Update your Listing</h3>
+      <form method="post" action="/listings/<%= listing._id || listing.id %>?_method=PUT" class="needs-validation" novalidate enctype="multipart/form-data">
+
+        <div class="mb-2">
+          <label class="form-label">Title</label>
+          <input type="text" name="listing[title]" placeholder="Title" class="form-control" value="<%= listing.title %>" required />
+        </div>
+
+        <div class="mb-2">
+          <label class="form-label">Description</label>
+          <textarea class="form-control" name="listing[description]" placeholder="Description" required><%= listing.description %></textarea>
+        </div>
+
+        <div class="mb-2">
+          <label class="form-label">Location</label>
+          <input type="text" name="listing[location]" placeholder="Location" class="form-control" value="<%= listing.location %>" required />
+        </div>
+
+        <div class="row">
+          <div class="mb-2 col-md-4">
+            <label class="form-label">Price</label>
+            <input type="number" name="listing[price]" placeholder="Price" class="form-control" value="<%= listing.price %>" required />
+          </div>
+          <div class="mb-2 col-md-8">
+            <label class="form-label">Country</label>
+            <input type="text" name="listing[country]" placeholder="Country" class="form-control" value="<%= listing.country %>" required />
+          </div>
+        </div>
+<div class="mb-4">
+  <label class="form-label fw-semibold">Current Image</label>
+
+  <div class="image-container">
+    <img src="<%= originalImageURL %>" alt="Listing Image" class="preview-img">
+  </div>
+</div>
+
+<div class="mb-3">
+  <label class="form-label fw-semibold">Upload New Image</label>
+  <input type="file" name="listing[image]" class="form-control">
+</div>
+
+<div class="mb-3">
+  <label class="category-card">
+  <input type="checkbox" name="listing[category][]" value="Trending" hidden
+    <%= listing.category?.includes("Trending") ? "checked" : "" %>>
+  <div class="icon-box">
+    <i class="fa-solid fa-fire"></i>
+    <p>Trending</p>
+  </div>
+</label>
+
+<label class="category-card">
+  <input type="checkbox" name="listing[category][]" value="Mountains" hidden
+    <%= listing.category?.includes("Mountains") ? "checked" : "" %>>
+  <div class="icon-box">
+    <i class="fa-solid fa-mountain"></i>
+    <p>Mountains</p>
+  </div>
+</label>
+
+<label class="category-card">
+  <input type="checkbox" name="listing[category][]" value="Beach" hidden
+    <%= listing.category?.includes("Beach") ? "checked" : "" %>>
+  <div class="icon-box">
+    <i class="fa-solid fa-umbrella-beach"></i>
+    <p>Beach</p>
+  </div>
+</label>
+
+<label class="category-card">
+  <input type="checkbox" name="listing[category][]" value="Farm" hidden
+    <%= listing.category?.includes("Farm") ? "checked" : "" %>>
+  <div class="icon-box">
+    <i class="fa-solid fa-tractor"></i>
+    <p>Farm</p>
+  </div>
+</label>
+
+<label class="category-card">
+  <input type="checkbox" name="listing[category][]" value="Campgrounds" hidden
+    <%= listing.category?.includes("Campgrounds") ? "checked" : "" %>>
+  <div class="icon-box">
+    <i class="fa-solid fa-campground"></i>
+    <p>Camp</p>
+  </div>
+</label>
+
+<label class="category-card">
+  <input type="checkbox" name="listing[category][]" value="Amazing pools" hidden
+    <%= listing.category?.includes("Amazing pools") ? "checked" : "" %>>
+  <div class="icon-box">
+    <i class="fa-solid fa-water-ladder"></i>
+    <p>Pools</p>
+  </div>
+</label>
+
+<label class="category-card">
+  <input type="checkbox" name="listing[category][]" value="Iconic cities" hidden
+    <%= listing.category?.includes("Iconic cities") ? "checked" : "" %>>
+  <div class="icon-box">
+    <i class="fa-solid fa-city"></i>
+    <p>Cities</p>
+  </div>
+</label>
+
+<label class="category-card">
+  <input type="checkbox" name="listing[category][]" value="Castles" hidden
+    <%= listing.category?.includes("Castles") ? "checked" : "" %>>
+  <div class="icon-box">
+    <i class="fa-solid fa-chess-rook"></i>
+    <p>Castles</p>
+  </div>
+</label>
+
+<label class="category-card">
+  <input type="checkbox" name="listing[category][]" value="Bed & Breakfast" hidden
+    <%= listing.category?.includes("Bed & Breakfast") ? "checked" : "" %>>
+  <div class="icon-box">
+    <i class="fa-solid fa-bed"></i>
+    <p>Bed & Breakfast</p>
+  </div>
+</label>
+</label>
+<label class="category-card">
+  <input type="checkbox" name="listing[category][]" value="Luxe" hidden
+    <%= listing.category?.includes("Luxe") ? "checked" : "" %>>
+  <div class="icon-box">
+    <i class="fa-solid fa-crown"></i>
+    <p>Luxe</p>
+  </div>
+</label>
+
+</div>
+    
+
+        <button class="btn btn-dark add-btn mb-2">Update</button>
+      </form>
+    </div>
+  </div>
+</body>

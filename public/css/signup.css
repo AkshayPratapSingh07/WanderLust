@@ -1,0 +1,62 @@
+.signup-container {
+  min-height: 80vh;
+}
+
+.signup-card {
+  width: 100%;
+  max-width: 500px;
+  border-radius: 15px;
+}
+
+.signup-title {
+  font-weight: 600;
+}
+
+.form-control {
+  border-radius: 10px;
+}
+
+.btn-primary {
+  border-radius: 10px;
+  font-weight: 600;
+}
+
+.Nsignup-text {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 16px;
+  color: #555;
+}
+
+.Nsignup-link {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: 500;
+  margin-left: 5px;
+}
+
+.Nsignup-link:hover {
+  text-decoration: underline;
+  color: #0056b3;
+}
+
+.login-cta {
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn-login {
+  background-color: #ff385c;
+  color: white;
+  padding: 6px 14px;
+  border-radius: 20px;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: 0.3s;
+}
+
+.btn-login:hover {
+  background-color: #e03150;
+}

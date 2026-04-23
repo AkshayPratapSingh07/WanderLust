@@ -1,0 +1,129 @@
+
+<% layout('/layouts/boilerplate') -%>
+<body class="bg-light">
+  <div class="container mt-5">
+    <div class="card shadow">
+      
+      <!-- IMAGE HERE -->
+      <img src="<%= listing.image.url %>" class="card-img-top" alt="Listing Image" style="max-height: 400px; object-fit: cover;" />
+
+      <div class="card-body">
+        <h3 class="card-title mb-4"></h3>
+        <ul class="list-group list-group-flush mb-4">
+          <li class="list-group-item"><strong>Owner:</strong> <%= listing.owner.username %></li>
+          <li class="list-group-item"><strong>Title:</strong> <%= listing.title %></li>
+          <li class="list-group-item"><strong>Description:</strong> <%= listing.description %></li>
+          <li class="list-group-item"><strong>Price:</strong> ₹<%= listing.price.toLocaleString('en-IN') %></li>
+          <li class="list-group-item"><strong>Location:</strong> <%= listing.location %></li>
+          <li class="list-group-item"><strong>Country:</strong> <%= listing.country %></li>
+          <li class="list-group-item"><strong>Categories:</strong> <%= listing.category.join(", ") %></li>
+        </ul>
+        
+    <% if (currentUser && currentUser._id.equals(listing.owner._id)) { %>
+        <div class="d-flex justify-content-between">
+          <form action="/listings/<%= listing.id %>/edit">
+            <button type="submit" class="btn btn-primary">Edit</button>
+          </form>
+          <form action="/listings/<%= listing.id %>?_method=DELETE" method="POST">
+            <button type="submit" class="btn btn-danger">Delete</button>
+          </form>
+        </div>
+        <% } %>
+     
+        
+<div class="col-8 offset-2">
+ <% if(currentUser) { %>
+<h4>Leave a Review</h4>
+<form action="/listings/<%= listing._id %>/reviews" method="POST" novalidate class="needs-validation">
+  
+  <div class="mb-3 mt-3">
+    <fieldset class="starability-slot">
+      <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="" checked hidden />
+      
+      <input type="radio" id="rate1" name="review[rating]" value="1" />
+      <label for="rate1">1 star</label>
+
+      <input type="radio" id="rate2" name="review[rating]" value="2" />
+      <label for="rate2">2 stars</label>
+
+      <input type="radio" id="rate3" name="review[rating]" value="3" />
+      <label for="rate3">3 stars</label>
+
+      <input type="radio" id="rate4" name="review[rating]" value="4" />
+      <label for="rate4">4 stars</label>
+
+      <input type="radio" id="rate5" name="review[rating]" value="5" />
+      <label for="rate5">5 stars</label>
+    </fieldset>
+  </div>
+
+  <div class="form-group">
+    <label for="comment">Comment:</label>
+    <textarea class="form-control" id="comment" name="review[comment]" rows="3" required></textarea>
+    <div class="invalid-feedback">
+      Please enter a comment.
+    </div>
+  </div>
+
+  <button type="submit" class="btn btn-outline-primary">Submit Review</button>
+</form>
+
+<hr>
+
+<% } else { %>
+  <p class="login-cta">
+  <a href="/login" class="btn-login">Login</a>
+  <span>to leave a review</span>
+</p>
+<% } %>
+
+
+<h4>Reviews</h4>
+
+<% if (listing.reviews.length === 0) { %>
+  <p>No reviews yet.</p>
+<% } else { %>
+
+  <div class="row">
+    <% listing.reviews.forEach(review => { %>
+      <div class="col-md-6 mb-3">
+        <div class="card">
+          <div class="card-body">
+
+            <h5 class="text-muted">
+              By: <%= review.author ? review.author.username : 'Unknown' %>
+            </h5>
+
+            <p class="starability-result" data-rating="<%= review.rating %>"></p>
+
+            <p><%= review.comment %></p>
+
+            <% if (currentUser && review.author && currentUser._id.equals(review.author._id)) { %>
+              <form action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE" method="POST">
+                <button class="btn btn-sm btn-danger">Delete</button>
+              </form>
+            <% } %>
+
+          </div>
+        </div>
+      </div>
+    <% }) %>
+  </div>
+
+<% } %>
+
+ <hr>
+<h4>Location on Map</h4>
+<div id="map" ></div>
+<script>
+  window.listingData = {
+    title: "<%= listing.title %>",
+    coordinates: <%- JSON.stringify(listing.geometry.coordinates) %>
+  };
+</script>
+
+
+      </div>
+    </div>
+  </div>
+</body>

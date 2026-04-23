@@ -1,0 +1,63 @@
+<nav class="navbar navbar-expand-md bg-body-light border-bottom sticky-top">
+  <div class="container-fluid">
+
+   
+    <a class="navbar-brand" href="/listings">
+      <i class="fa-solid fa-compass"></i>
+    </a>
+
+    
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+      data-bs-target="#navbarNavAltMarkup">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+
+      
+      <div class="navbar-nav">
+        <a class="nav-link" href="/listings">Explore</a>
+      </div>
+
+      
+<div class="navbar-nav mx-auto">
+  <form class="search-box d-flex align-items-center" action="/listings" method="GET">
+
+  <% if (selectedCategory && selectedCategory.length > 0) { %>
+    <% selectedCategory.forEach(cat => { %>
+      <input type="hidden" name="category" value="<%= cat %>">
+    <% }) %>
+  <% } %>
+
+  <input
+    type="search"
+    name="search"
+    class="search-input"
+    placeholder="Search destinations..."
+    value="<%= search || '' %>"
+  >
+
+  <button class="search-btn" type="submit">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+
+</form>
+</div>
+
+
+     
+      <div class="navbar-nav ms-auto gap-2 mt-2 mt-md-0">
+        <a class="nav-link" href="/listings/new">Airbnb your place</a>
+
+        <% if(!currentUser){ %>
+          <a class="nav-link" href="/login"><b>Login</b></a>
+          <a class="nav-link" href="/signup"><b>Signup</b></a>
+        <% } else { %>
+          <a class="nav-link" href="/logout"><b>Logout</b></a>
+        <% } %>
+      </div>
+
+    </div>
+  </div>
+</nav>
