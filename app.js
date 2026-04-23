@@ -32,6 +32,11 @@ app.set("views", path.join(__dirname, "views"));
 app.use(methodOverride("_method"));
 app.use(express.static(path.join(__dirname, "public")));
 
+console.log("ENV CHECK:");
+console.log("SECRET_KEY:", process.env.SECRET_KEY);
+console.log("ATLASDB_URL:", process.env.ATLASDB_URL);
+console.log("NODE_ENV:", process.env.NODE_ENV);
+
 const store = new MongoStore({
   mongoUrl: DB_URL,
   crypto: {
@@ -55,6 +60,7 @@ const sessionOptions = {
     maxAge: 1000 * 60 * 60 * 24 * 7,
   },
 };
+
 app.use(session(sessionOptions));
 app.use(flash());
 app.use(passport.initialize());
@@ -104,6 +110,7 @@ app.use("/", userRoutes);
 app.all("/*splat", (req, res, next) => {
   next(new ExpressError(404, "Page Not Found"));
 });
+
 
 app.use((err, req, res, next) => {
   let { statusCode = 500, message = "Something went wrong!" } = err;
