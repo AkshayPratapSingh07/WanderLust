@@ -10,7 +10,7 @@ const flash = require("connect-flash");
 const app = express();
 const engine = require("ejs-mate");
 const path = require("path");
-const Mongo_URL = "mongodb://127.0.0.1:27017/Wanderlust";
+const sessionSecret = process.env.SECRET_KEY || "fallbacksecret123";
 const DB_URL = process.env.ATLASDB_URL;
 const User = require("./models/user.js");
 const passport = require("passport");
@@ -40,7 +40,7 @@ console.log("NODE_ENV:", process.env.NODE_ENV);
 const store = new MongoStore({
   mongoUrl: DB_URL,
   crypto: {
-    secret: process.env.SECRET_KEY,
+    secret: sessionSecret,
   },
   touchAfter: 24 * 60 * 60,
 });
@@ -51,7 +51,7 @@ store.on("error", function (e) {
 
 const sessionOptions = {
   store,
-  secret: process.env.SECRET_KEY,
+  secret: sessionSecret,
   resave: false,
   saveUninitialized: true,
   cookie: {
